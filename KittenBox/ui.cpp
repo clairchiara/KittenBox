@@ -1,9 +1,11 @@
 #include <SDL2/SDL.h>
+#include "game.h"
 
 class UI {
 public:
 
-  UI(){
+  UI(Game * _game){
+	  game = _game;
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_RESIZABLE, &window, &renderer);
     SDL_SetWindowTitle(window, "KittenBox");
@@ -42,6 +44,7 @@ private:
   SDL_Renderer* renderer;
   SDL_Surface* texture_loading_surface;
   SDL_Texture* kitten;
+	Game* game;
 
   int width = 800;
   int height = 800;
@@ -61,7 +64,9 @@ private:
 	box.y = (int) (length < height ? (height-length)/2 : 0)+(length/10)+y*(length/10-1);
 	box.w = length/10;
 	box.h = length/10;
-	SDL_RenderCopy(renderer, kitten, NULL, &box);
+		  if (game->getBoard()[x][y].containsKitten) {
+			  SDL_RenderCopy(renderer, kitten, NULL, &box);
+		  }
 	SDL_RenderDrawRect(renderer, &box);
       }
     }
@@ -71,11 +76,11 @@ private:
 
 
 /* Temporary main() as I work on ui */
-int main(){
-  UI ui;
-
-  while(true){
-    ui.update();
-    ui.handle_events();
-  }
-}
+//int main(){
+//  UI ui;
+//
+//  while(true){
+//    ui.update();
+//    ui.handle_events();
+//  }
+//}
