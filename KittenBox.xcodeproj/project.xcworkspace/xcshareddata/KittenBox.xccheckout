@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C940C168-BBDD-44CC-BA84-2E0B681E5592</string>
+	<key>IDESourceControlProjectName</key>
+	<string>KittenBox</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>576646BC2CBCA7467B3D051995FE72B00677EE1F</key>
+		<string>github.com:clairchiara/KittenBox.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>KittenBox.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>576646BC2CBCA7467B3D051995FE72B00677EE1F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:clairchiara/KittenBox.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>576646BC2CBCA7467B3D051995FE72B00677EE1F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>576646BC2CBCA7467B3D051995FE72B00677EE1F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KittenBox</string>
+		</dict>
+	</array>
+</dict>
+</plist>

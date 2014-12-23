@@ -24,21 +24,16 @@ enum StateOfArea {
 	deviated
 };
 
-enum Deviation {
-	none = 0,
-	A = 1,
-	B = 2,
-	C = 3,
-	D = 4,
-	E = 5,
-	F = 6,
-	G = 7,
-	H = 8
+enum Direction {
+	TOP,
+	BOTTOM,
+	LEFT,
+	RIGHT
 };
 
 struct OutsideArea {
 	StateOfArea state;
-	Deviation deviation;
+	int deviation;
 };
 
 class Game {
@@ -55,6 +50,7 @@ public:
 	void setBoard(std::array<std::array<Cell, 8>, 8>);
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
+	bool clickedArea(int, Direction);
 };
 
 #endif /* defined(__KittenBox__game__) */
