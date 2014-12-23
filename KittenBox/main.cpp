@@ -10,10 +10,13 @@
 #include <array>
 #include <random>
 #include <string.h>
+#include "game.h"
+#include "ui.cpp"
 
 using namespace std;
 
-array<array<bool, 8>, 8> board;
+Game game;
+UI *ui;
 
 void printBoard() {
 	cout << (char) 12;
@@ -42,7 +45,7 @@ void printBoard() {
 						cout << "|_____";
 						break;
 					case 1:
-						if (board[x][y]) {
+						if (game.getBoard()[x][y].containsKitten) {
 							cout << "|Kittn";
 							break;
 						}
@@ -56,12 +59,13 @@ void printBoard() {
 }
 
 int main(int argc, const char * argv[]) {
-	cout << "Welcome to Kitten Box!\n";
-	cout << "Find the location of the kittens!\n";
-	cin.ignore();
+	ui = new UI(&game);
+//	cout << "Welcome to Kitten Box!\n";
+//	cout << "Find the location of the kittens!\n";
+//	cin.ignore();
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			board[i][j] = false;
+			game.setContainsKitten(i, j, false);
 		}
 	}
 	for (int i = 0; i < 4; i++) {
@@ -72,22 +76,29 @@ int main(int argc, const char * argv[]) {
 		int firstGen = dis(gen);
 		int secondGen = dis(gen);
 		
-		board[firstGen][secondGen] ? i-- : board[firstGen][secondGen] = true;
+		if (game.getBoard()[firstGen][secondGen].containsKitten) {
+			i --;
+		} else game.setContainsKitten(firstGen, secondGen, true);
 	}
-	printBoard();
+//	printBoard();
 	
-	char direction;
-	char row;
-	int column;
+	while(true) {
+		ui->update();
+		ui->handle_events();
+	}
 	
-	scanf("%s", &direction);
-	if (direction == 'l' || direction == 'r') {
-		scanf("%d", &column);
-		if (column < 1 || column > 8) cout << "NEIN NEIN NEIN\n";
-		scanf("%d", &column);
-	} else if (direction == 't' || direction == 'b') {
-		scanf("%s", &row);
-		if (strchr("abcdefgh", direction) == 0) cout << "NEIN NEIN NEIN\n";
-	} else cout << "NEIN NEIN NEIN\n";
+//	char direction;
+//	char row;
+//	int column;
+//	
+//	scanf("%s", &direction);
+//	if (direction == 'l' || direction == 'r') {
+//		scanf("%d", &column);
+//		if (column < 1 || column > 8) cout << "NEIN NEIN NEIN\n";
+//		scanf("%d", &column);
+//	} else if (direction == 't' || direction == 'b') {
+//		scanf("%s", &row);
+//		if (strchr("abcdefgh", direction) == 0) cout << "NEIN NEIN NEIN\n";
+//	} else cout << "NEIN NEIN NEIN\n";
     return 0;
 }
