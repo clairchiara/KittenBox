@@ -41,16 +41,13 @@ private:
 	int deviations = 0;
 	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
-//	std::array<OutsideArea, 8> top;
-//	std::array<OutsideArea, 8> bottom;
-//	std::array<OutsideArea, 8> left;
-//	std::array<OutsideArea, 8> right;
 public:
 	Game();
 	std::array<std::array<Cell, 8>, 8> getBoard();
 	void setBoard(std::array<std::array<Cell, 8>, 8>);
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
+	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
 	bool clickedArea(int, Direction);
 };
 

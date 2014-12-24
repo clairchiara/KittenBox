@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		764134831A48C90A00DDB0F2 /* ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764134821A48C90A00DDB0F2 /* ui.cpp */; };
-		764134D91A48D3F800DDB0F2 /* kitten.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 764134811A48C90200DDB0F2 /* kitten.bmp */; };
 		76B04E3E1A48B067009C0397 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B04E3C1A48B067009C0397 /* game.cpp */; };
 		76F029051A32491600FBC8E2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76F029041A32491600FBC8E2 /* main.cpp */; };
 /* End PBXBuildFile section */
@@ -20,15 +19,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				764134D91A48D3F800DDB0F2 /* kitten.bmp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		764134811A48C90200DDB0F2 /* kitten.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = kitten.bmp; sourceTree = "<group>"; };
 		764134821A48C90A00DDB0F2 /* ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui.cpp; sourceTree = "<group>"; };
+		7644616F1A4B521C004A618D /* kitten.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = kitten.bmp; sourceTree = "<group>"; };
 		76B04E3C1A48B067009C0397 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		76B04E3D1A48B067009C0397 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		76F029011A32491600FBC8E2 /* KittenBox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KittenBox; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,7 +63,7 @@
 		76F029031A32491600FBC8E2 /* KittenBox */ = {
 			isa = PBXGroup;
 			children = (
-				764134811A48C90200DDB0F2 /* kitten.bmp */,
+				7644616F1A4B521C004A618D /* kitten.bmp */,
 				764134821A48C90A00DDB0F2 /* ui.cpp */,
 				76F029041A32491600FBC8E2 /* main.cpp */,
 				76B04E3D1A48B067009C0397 /* game.h */,
