@@ -161,7 +161,35 @@ bool Game::clickedArea(int i, Direction a) {
 	for ( ; ; ) {
 		if (position[0] == 0 or position[0] == 7 or position[1] == 0 or position[1] == 7) {
 			switch (direction) {
-					// TODO
+				case TOP:
+					if (position[1] == 0) {
+						if (position == initialPosition) {
+							outsideArea[a][i].state = returned;
+							goto end_loop;
+						} else {
+							outsideArea[a][i].state = deviated;
+							outsideArea[a][i].deviation = deviations;
+							outsideArea[TOP][position[0]].deviation = deviations++;
+							goto end_loop;
+						}
+					}
+					break;
+				case BOTTOM:
+					if (position[1] == 7) {
+						if (position == initialPosition) {
+							outsideArea[a][i].state = returned;
+							goto end_loop;
+						} else {
+							outsideArea[a][i].state = deviated;
+							outsideArea[a][i].deviation = deviations;
+							outsideArea[BOTTOM][position[0]].deviation = deviations++;
+							goto end_loop;
+						}
+					}
+					break;
+				case LEFT:
+					/* TODO */
+					break;
 			}
 		}
 		switch (direction) {
@@ -199,5 +227,6 @@ bool Game::clickedArea(int i, Direction a) {
 				break;
 		}
 	}
+end_loop:
 	return true;
 }
