@@ -25,10 +25,10 @@ enum StateOfArea {
 };
 
 enum Direction {
-	TOP,
-	BOTTOM,
-	LEFT,
-	RIGHT
+	TOP = 0,
+	BOTTOM = 1,
+	LEFT = 2,
+	RIGHT = 3
 };
 
 struct OutsideArea {
@@ -39,11 +39,12 @@ struct OutsideArea {
 class Game {
 private:
 	int deviations = 0;
+	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
-	std::array<OutsideArea, 8> top;
-	std::array<OutsideArea, 8> bottom;
-	std::array<OutsideArea, 8> left;
-	std::array<OutsideArea, 8> right;
+//	std::array<OutsideArea, 8> top;
+//	std::array<OutsideArea, 8> bottom;
+//	std::array<OutsideArea, 8> left;
+//	std::array<OutsideArea, 8> right;
 public:
 	Game();
 	std::array<std::array<Cell, 8>, 8> getBoard();
