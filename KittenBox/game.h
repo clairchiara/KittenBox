@@ -25,6 +25,13 @@ enum StateOfArea {
 };
 
 enum Direction {
+	UPW = 0,
+	DOWNW = 1,
+	LEFTW = 2,
+	RIGHTW = 3
+};
+
+enum Position {
 	TOP = 0,
 	BOTTOM = 1,
 	LEFT = 2,
@@ -48,7 +55,7 @@ public:
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
 	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
-	bool clickedArea(int, Direction);
+	bool clickedArea(int, Position);
 };
 
 #endif /* defined(__KittenBox__game__) */

@@ -45,7 +45,7 @@ std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() {
 	return outsideArea;
 }
 
-bool Game::clickedArea(int i, Direction a) {
+bool Game::clickedArea(int i, Position a) {
 	
 	Direction direction;
 	std::array<int, 2> position;
@@ -53,16 +53,16 @@ bool Game::clickedArea(int i, Direction a) {
 	
 	switch (a) {
 		case TOP:
-			direction = BOTTOM;
+			direction = DOWNW;
 			break;
 		case BOTTOM:
-			direction = TOP;
+			direction = UPW;
 			break;
 		case LEFT:
-			direction = RIGHT;
+			direction = RIGHTW;
 			break;
 		case RIGHT:
-			direction = LEFT;
+			direction = LEFTW;
 			break;
 	}
 	switch (a) {
@@ -156,33 +156,33 @@ bool Game::clickedArea(int i, Direction a) {
 			case TOP:
 				if (board[position[0]][position[1]-1].containsKitten) outsideArea[a][i].state = captured;
 				else if (board[position[0]-1][position[1]-1].containsKitten) {
-					if (board[position[0]+1][position[1]-1].containsKitten) direction = BOTTOM;
-					else direction = RIGHT;
-				} else if (board[position[0]+1][position[1]-1].containsKitten) direction = LEFT;
+					if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
+					else direction = RIGHTW;
+				} else if (board[position[0]+1][position[1]-1].containsKitten) direction = LEFTW;
 				else position[1]--;
 				break;
 			case BOTTOM:
 				if (board[position[0]][position[1]+1].containsKitten) outsideArea[a][i].state = captured;
 				else if (board[position[0]-1][position[1]+1].containsKitten) {
-					if (board[position[0]+1][position[1]+1].containsKitten) direction = TOP;
-					else direction = RIGHT;
-				} else if (board[position[0]+1][position[1]+1].containsKitten) direction = RIGHT;
+					if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
+					else direction = RIGHTW;
+				} else if (board[position[0]+1][position[1]+1].containsKitten) direction = RIGHTW;
 				else position[1]++;
 				break;
 			case LEFT:
 				if (board[position[0]-1][position[1]].containsKitten) outsideArea[a][i].state = captured;
 				else if (board[position[0]-1][position[1]-1].containsKitten) {
-					if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHT;
-					else direction = BOTTOM;
-				} else if (board[position[0]-1][position[1]+1].containsKitten) direction = TOP;
+					if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHTW;
+					else direction = DOWNW;
+				} else if (board[position[0]-1][position[1]+1].containsKitten) direction = UPW;
 				else position[0]--;
 				break;
 			case RIGHT:
 				if (board[position[0]+1][position[1]].containsKitten) outsideArea[a][i].state = captured;
 				else if (board[position[0]+1][position[1]-1].containsKitten) {
-					if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFT;
-					else direction = BOTTOM;
-				} else if (board[position[0]+1][position[1]+1].containsKitten) direction = TOP;
+					if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFTW;
+					else direction = DOWNW;
+				} else if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
 				else position[0]++;
 				break;
 		}
