@@ -25,7 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		764134821A48C90A00DDB0F2 /* ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui.cpp; sourceTree = "<group>"; };
+		764134821A48C90A00DDB0F2 /* ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ui.cpp; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		7644616F1A4B521C004A618D /* kitten.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = kitten.bmp; sourceTree = "<group>"; };
 		76B04E3C1A48B067009C0397 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		76B04E3D1A48B067009C0397 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
