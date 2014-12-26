@@ -24,37 +24,31 @@ enum StateOfArea {
 	deviated
 };
 
-enum Deviation {
-	none = 0,
-	A = 1,
-	B = 2,
-	C = 3,
-	D = 4,
-	E = 5,
-	F = 6,
-	G = 7,
-	H = 8
+enum Direction {
+	TOP = 0,
+	BOTTOM = 1,
+	LEFT = 2,
+	RIGHT = 3
 };
 
 struct OutsideArea {
 	StateOfArea state;
-	Deviation deviation;
+	int deviation;
 };
 
 class Game {
 private:
 	int deviations = 0;
+	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
-	std::array<OutsideArea, 8> top;
-	std::array<OutsideArea, 8> bottom;
-	std::array<OutsideArea, 8> left;
-	std::array<OutsideArea, 8> right;
 public:
 	Game();
 	std::array<std::array<Cell, 8>, 8> getBoard();
 	void setBoard(std::array<std::array<Cell, 8>, 8>);
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
+	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
+	bool clickedArea(int, Direction);
 };
 
 #endif /* defined(__KittenBox__game__) */
