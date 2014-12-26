@@ -6,12 +6,13 @@
 //  Copyright (c) 2014 Clair Marchesani and Anna Winters. All rights reserved.
 //
 
-#include <iostream>
 #include <array>
+#include <iostream>
 #include <random>
 #include <string.h>
+
 #include "game.h"
-#include "ui.cpp"
+#include "ui.h"
 
 using namespace std;
 
