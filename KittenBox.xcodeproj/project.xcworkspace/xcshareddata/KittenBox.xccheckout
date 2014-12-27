@@ -10,14 +10,14 @@
 	<string>KittenBox</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>576646BC2CBCA7467B3D051995FE72B00677EE1F</key>
+		<key>02B1032FE9CEC9CD3622A2CAE9871F7B858AB543</key>
 		<string>github.com:clairchiara/KittenBox.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>KittenBox.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>576646BC2CBCA7467B3D051995FE72B00677EE1F</key>
+		<key>02B1032FE9CEC9CD3622A2CAE9871F7B858AB543</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>576646BC2CBCA7467B3D051995FE72B00677EE1F</string>
+	<string>02B1032FE9CEC9CD3622A2CAE9871F7B858AB543</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>576646BC2CBCA7467B3D051995FE72B00677EE1F</string>
+			<string>02B1032FE9CEC9CD3622A2CAE9871F7B858AB543</string>
 			<key>IDESourceControlWCCName</key>
 			<string>KittenBox</string>
 		</dict>
