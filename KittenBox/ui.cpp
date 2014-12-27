@@ -42,7 +42,8 @@ void UI::handle_events() {
       }
       break;
     case SDL_MOUSEBUTTONDOWN:
-      std::cout << event.button.x << " " << event.button.y << std::endl;
+      handle_mouse_click(event.button.x, event.button.y);
+      //      std::cout << event.button.x << " " << event.button.y << std::endl;
     }
   }
 }
@@ -136,12 +137,21 @@ void UI::draw_boxes_and_triangles() {
   }
 }
 
-void UI::handle_mouse_click(int x, int y) {
+bool UI::on_which_side_of_triangle_edge(int x, int y, SDL_Point v1, SDL_Point v2) {
+  return (x - v2.x) * (v1.y - v2.y) - (v1.x - v2.x) * (y - v2.y) < 0.0f;
+}
 
+void UI::handle_mouse_click(int x, int y) {
+  bool side_of_edge [3];
   for (int p = 0; p < 4; p++) { //Loop through members of Position enum
     for (int b = 0; b < 8; b++) { //Loop through the 8 buttons at each position
-      if(false){
-	game.clickedArea(b, p);
+      side_of_edge[0] = on_which_side_of_triangle_edge(x, y, button_boundaries[p][b][0], button_boundaries[p][b][1]);
+      side_of_edge[1] = on_which_side_of_triangle_edge(x, y, button_boundaries[p][b][1], button_boundaries[p][b][2]);
+      side_of_edge[2] = on_which_side_of_triangle_edge(x, y, button_boundaries[p][b][2], button_boundaries[p][b][0]);
+
+      if ((side_of_edge[0] == side_of_edge[1]) && (side_of_edge[1] == side_of_edge[2])) {
+	std::cout << "Clicked " << p << " " << b << std::endl;
+	game->clickedArea(b, (Position) p);
       }
     }
   }
