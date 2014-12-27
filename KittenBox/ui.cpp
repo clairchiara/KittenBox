@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 
 #include "ui.h"
 
@@ -39,6 +40,9 @@ void UI::handle_events() {
 	height = event.window.data2;
 	break;
       }
+      break;
+    case SDL_MOUSEBUTTONDOWN:
+      std::cout << event.button.x << " " << event.button.y << std::endl;
     }
   }
 }
@@ -88,6 +92,8 @@ void UI::draw_boxes_and_triangles() {
 	triangle[6] = {triangle[2].x - 1, triangle[2].y + 1};
 	triangle[7] = {triangle[4].x, triangle[4].y};
 	SDL_RenderDrawLines(renderer, triangle, 8);
+	store_triangle_boundaries(triangle, TOP, x);
+
       } else if (y == 7) { //Draw bottom triangle for this column
 	SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
 	triangle[0] = {box.x + half_box_width, box.y + box.h + 3};
@@ -99,6 +105,7 @@ void UI::draw_boxes_and_triangles() {
 	triangle[6] = {triangle[2].x - 1, triangle[2].y - 1};
 	triangle[7] = {triangle[4].x, triangle[4].y};
 	SDL_RenderDrawLines(renderer, triangle, 8);
+	store_triangle_boundaries(triangle, BOTTOM, x);
       }
     }
     //Draw left triangle for this row
@@ -112,7 +119,8 @@ void UI::draw_boxes_and_triangles() {
     triangle[6] = {triangle[2].x + 1, triangle[2].y - 1};
     triangle[7] = {triangle[4].x, triangle[4].y};
     SDL_RenderDrawLines(renderer, triangle, 8);
-    
+    store_triangle_boundaries(triangle, LEFT, y);    
+
     //Draw right triangle for this row
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     triangle[0] = {boxes_end_x + 3, box.y + half_box_width};
@@ -124,5 +132,23 @@ void UI::draw_boxes_and_triangles() {
     triangle[6] = {triangle[2].x - 1, triangle[2].y - 1};
     triangle[7] = {triangle[4].x, triangle[4].y};
     SDL_RenderDrawLines(renderer, triangle, 8);
+    store_triangle_boundaries(triangle, RIGHT, y);
   }
+}
+
+void UI::handle_mouse_click(int x, int y) {
+
+  for (int p = 0; p < 4; p++) { //Loop through members of Position enum
+    for (int b = 0; b < 8; b++) { //Loop through the 8 buttons at each position
+      if(false){
+	game.clickedArea(b, p);
+      }
+    }
+  }
+}
+
+inline void UI::store_triangle_boundaries(SDL_Point* triangle, Position position, int button) {
+  button_boundaries[position][button][0] = triangle[0];
+  button_boundaries[position][button][1] = triangle[1];
+  button_boundaries[position][button][2] = triangle[2];
 }
