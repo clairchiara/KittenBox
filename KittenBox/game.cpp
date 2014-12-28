@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <string>
 
 #include "game.h"
 
@@ -72,29 +73,93 @@ bool Game::clickedArea(int i, Position a) {
 			position = {i, 0};
 			initialPosition = {i, 0};
 			if (outsideArea[a][i].state != empty) return false;
-			if (board[i][0].containsKitten) outsideArea[a][i].state = captured;
-			else if (board[i-1][0].containsKitten or board[i+1][0].containsKitten) outsideArea[a][i].state = returned;
+			if (board[i][0].containsKitten) {
+				outsideArea[a][i].state = captured;
+				goto end_loop;
+			} else {
+				if (i == 0) {
+					if (board[i+1][0].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (i == 7) {
+					if (board[i-1][0].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (board[i-1][0].containsKitten or board[i+1][0].containsKitten) {
+					outsideArea[a][i].state = returned;
+					goto end_loop;
+				}
+			}
 			break;
 		case BOTTOM:
 			position = {i, 7};
 			initialPosition = {i, 7};
 			if (outsideArea[a][i].state != empty) return false;
-			if (board[i][7].containsKitten) outsideArea[a][i].state = captured;
-			else if (board[i-1][7].containsKitten or board[i+1][7].containsKitten) outsideArea[a][i].state = returned;
+			if (board[i][7].containsKitten) {
+				outsideArea[a][i].state = captured;
+				goto end_loop;
+			} else {
+				if (i == 0) {
+					if (board[i+1][7].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (i == 7) {
+					if (board[i-1][7].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (board[i-1][7].containsKitten or board[i+1][7].containsKitten) {
+					outsideArea[a][i].state = returned;
+					goto end_loop;
+				}
+			}
 			break;
 		case LEFT:
 			position = {0, i};
 			initialPosition = {0, i};
 			if (outsideArea[a][i].state != empty) return false;
 			if (board[0][i].containsKitten) outsideArea[a][i].state = captured;
-			else if (board[0][i-1].containsKitten or board[0][i+1].containsKitten) outsideArea[a][i].state = returned;
+			else {
+				if (i == 0) {
+					if (board[0][i+1].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (i == 7) {
+					if (board[0][i-1].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (board[0][i-1].containsKitten or board[0][i+1].containsKitten) {
+					outsideArea[a][i].state = returned;
+					goto end_loop;
+				}
+			}
 			break;
 		case RIGHT:
 			position = {7, i};
 			initialPosition = {7, i};
 			if (outsideArea[a][i].state != empty) return false;
 			if (board[7][i].containsKitten) outsideArea[a][i].state = captured;
-			else if (board[7][i-1].containsKitten or board[7][i+1].containsKitten) outsideArea[a][i].state = returned;
+			else {
+				if (i == 0) {
+					if (board[7][i+1].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (i == 7) {
+					if (board[7][i-1].containsKitten) {
+						outsideArea[a][i].state = returned;
+						goto end_loop;
+					}
+				} else if (board[7][i-1].containsKitten or board[7][i+1].containsKitten) {
+					outsideArea[a][i].state = returned;
+					goto end_loop;
+				}
+			}
 			break;
 	}
 	for ( ; ; ) {
@@ -466,5 +531,12 @@ bool Game::clickedArea(int i, Position a) {
 		if (outsideArea[a][i].state != empty) break;
 	}
 end_loop:
+	std::string state[] = {
+		"empty",
+		"returned",
+		"captured",
+		"deviated"
+	};
+	std::cout << state[outsideArea[a][i].state] << "\n";
 	return true;
 }
