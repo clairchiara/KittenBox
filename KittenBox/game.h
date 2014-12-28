@@ -18,10 +18,10 @@ struct Cell {
 };
 
 enum StateOfArea {
-	empty,
-	returned,
-	captured,
-	deviated
+	empty = 0,
+	returned = 1,
+	captured = 2,
+	deviated = 3
 };
 
 enum Direction {
