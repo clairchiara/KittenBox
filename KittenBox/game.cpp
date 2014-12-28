@@ -174,6 +174,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[TOP][position[0]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[TOP][position[0]].deviation = deviations++;
 								goto end_loop;
@@ -192,6 +193,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[LEFT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -222,6 +224,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[BOTTOM][position[0]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[BOTTOM][position[0]].deviation = deviations++;
 								goto end_loop;
@@ -232,6 +235,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[LEFT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -270,6 +274,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[LEFT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -295,6 +300,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[TOP][position[0]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[TOP][position[0]].deviation = deviations++;
 								goto end_loop;
@@ -321,6 +327,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[RIGHT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -342,6 +349,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[BOTTOM][position[0]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[BOTTOM][position[0]].deviation = deviations++;
 								goto end_loop;
@@ -360,6 +368,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[RIGHT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -399,6 +408,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							} else {
 								outsideArea[a][i].state = deviated;
+								outsideArea[RIGHT][position[1]].state = deviated;
 								outsideArea[a][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
@@ -413,6 +423,7 @@ bool Game::clickedArea(int i, Position a) {
 							goto end_loop;
 						} else {
 							outsideArea[a][i].state = deviated;
+							outsideArea[TOP][position[0]].state = deviated;
 							outsideArea[a][i].deviation = deviations;
 							outsideArea[TOP][position[0]].deviation = deviations++;
 							goto end_loop;
@@ -462,6 +473,7 @@ bool Game::clickedArea(int i, Position a) {
 							goto end_loop;
 						} else {
 							outsideArea[a][i].state = deviated;
+							outsideArea[BOTTOM][position[0]].state = deviated;
 							outsideArea[a][i].deviation = deviations;
 							outsideArea[BOTTOM][position[0]].deviation = deviations++;
 							goto end_loop;
