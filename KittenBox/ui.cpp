@@ -17,7 +17,12 @@ UI::UI(Game* _game) {
   
   texture_loading_surface = SDL_LoadBMP("kitten.bmp");
   kitten_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);
-  SDL_FreeSurface(texture_loading_surface); 
+  SDL_FreeSurface(texture_loading_surface);
+  
+  colours[empty] = {0, 0, 0, 255};
+  colours[returned] = {255, 0, 0, 127};
+  colours[captured] = {0, 255, 0, 127};
+  colours[deviated] = {0, 0, 255, 127};
 }
 
 void UI::update() {
@@ -60,6 +65,7 @@ void UI::draw_boxes_and_triangles() {
   int triangle_height;
   int length = (width < height ? width : height);
   int boxes_start_x, boxes_end_x; //Used for drawing left and right triangles
+  SDL_Colour tri_col = {0, 0, 0, 255}; //Temporarily store colour for each triangle
   
   for (int y = 0; y < 8; y++) { //8 x 8 grid of boxes
     SDL_Rect box;
@@ -83,7 +89,8 @@ void UI::draw_boxes_and_triangles() {
 	boxes_end_x = box.x + box.w;
       }
       if (y == 0) { //Draw top triangle for this column
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+        tri_col = colours[game->getOutsideArea()[TOP][x].deviation];
+	SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
 	triangle[0] = {box.x + half_box_width, box.y - 3};
 	triangle[1] = {box.x + 3, triangle[0].y - triangle_height};
 	triangle[2] = {box.x + (half_box_width * 2) - 3, triangle[1].y};
@@ -96,8 +103,9 @@ void UI::draw_boxes_and_triangles() {
 	store_triangle_boundaries(triangle, TOP, x);
 
       } else if (y == 7) { //Draw bottom triangle for this column
-	SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
-	triangle[0] = {box.x + half_box_width, box.y + box.h + 3};
+        tri_col = colours[game->getOutsideArea()[BOTTOM][x].deviation];
+        SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
+        triangle[0] = {box.x + half_box_width, box.y + box.h + 3};
 	triangle[1] = {box.x + 3, box.y + box.h + triangle_height + 3};
 	triangle[2] = {box.x + (half_box_width * 2) - 3, box.y + box.h + triangle_height + 3};
 	triangle[3] = triangle[0];
@@ -110,7 +118,8 @@ void UI::draw_boxes_and_triangles() {
       }
     }
     //Draw left triangle for this row
-    SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+    tri_col = colours[game->getOutsideArea()[LEFT][y].deviation];
+    SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
     triangle[0] = {boxes_start_x - 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x - triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};
@@ -123,7 +132,8 @@ void UI::draw_boxes_and_triangles() {
     store_triangle_boundaries(triangle, LEFT, y);    
 
     //Draw right triangle for this row
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    tri_col = colours[game->getOutsideArea()[RIGHT][y].deviation];
+    SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
     triangle[0] = {boxes_end_x + 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x + triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};

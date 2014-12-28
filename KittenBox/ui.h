@@ -20,6 +20,7 @@ class UI {
   SDL_Surface* texture_loading_surface;
   SDL_Texture* kitten_texture;
   Game* game;
+  SDL_Colour colours [4];
   
   int width;
   int height;
