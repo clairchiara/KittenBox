@@ -121,7 +121,10 @@ bool Game::clickedArea(int i, Position a) {
 			position = {0, i};
 			initialPosition = {0, i};
 			if (outsideArea[a][i].state != empty) return false;
-			if (board[0][i].containsKitten) outsideArea[a][i].state = captured;
+			if (board[0][i].containsKitten) {
+				outsideArea[a][i].state = captured;
+				goto end_loop;
+			}
 			else {
 				if (i == 0) {
 					if (board[0][i+1].containsKitten) {
@@ -143,7 +146,10 @@ bool Game::clickedArea(int i, Position a) {
 			position = {7, i};
 			initialPosition = {7, i};
 			if (outsideArea[a][i].state != empty) return false;
-			if (board[7][i].containsKitten) outsideArea[a][i].state = captured;
+			if (board[7][i].containsKitten) {
+				outsideArea[a][i].state = captured;
+				goto end_loop;
+			}
 			else {
 				if (i == 0) {
 					if (board[7][i+1].containsKitten) {
@@ -491,7 +497,7 @@ bool Game::clickedArea(int i, Position a) {
 							outsideArea[a][i].state = captured;
 							goto end_loop;
 						}
-						if (board[position[0]+1][position[1]-11].containsKitten) direction = DOWNW;
+						if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
 						else position[0]++;
 						break;
 				}
