@@ -34,7 +34,6 @@ int main(int argc, const char * argv[]) {
 		
 		if (game.getBoard()[firstGen][secondGen].containsKitten) i--;
 		else game.setContainsKitten(firstGen, secondGen, true);
-//		game.setContainsKitten(6, 1, true);
 	}
 	
 	while(true) {

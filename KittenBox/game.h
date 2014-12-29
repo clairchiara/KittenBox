@@ -55,6 +55,7 @@ public:
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
 	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
+	Direction reverseDirection(Direction);
 	bool clickedArea(int, Position);
 };
 

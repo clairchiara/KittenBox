@@ -48,26 +48,41 @@ std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() {
 	return outsideArea;
 }
 
+Direction Game::reverseDirection(Direction _direction) {
+	switch (_direction) {
+		case UPW:
+			return DOWNW;
+		case DOWNW:
+			return UPW;
+		case LEFTW:
+			return RIGHTW;
+		case RIGHTW:
+			return LEFTW;
+	}
+}
+
 bool Game::clickedArea(int i, Position a) {
 	
 	Direction direction;
+	Direction initialDirection;
 	std::array<int, 2> position;
 	std::array<int, 2> initialPosition;
 	
 	switch (a) {
 		case TOP:
-			direction = DOWNW;
+			initialDirection = DOWNW;
 			break;
 		case BOTTOM:
-			direction = UPW;
+			initialDirection = UPW;
 			break;
 		case LEFT:
-			direction = RIGHTW;
+			initialDirection = RIGHTW;
 			break;
 		case RIGHT:
-			direction = LEFTW;
+			initialDirection = LEFTW;
 			break;
 	}
+	direction = initialDirection;
 	switch (a) {
 		case TOP:
 			position = {i, 0};
@@ -175,7 +190,7 @@ bool Game::clickedArea(int i, Position a) {
 				if (position[1] == 0) {
 					switch (direction) {
 						case UPW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -194,7 +209,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[1]++;
 							break;
 						case LEFTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -225,7 +240,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[1]--;
 							break;
 						case DOWNW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -236,7 +251,7 @@ bool Game::clickedArea(int i, Position a) {
 								goto end_loop;
 							}
 						case LEFTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -275,7 +290,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[1]++;
 							break;
 						case LEFTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -301,7 +316,7 @@ bool Game::clickedArea(int i, Position a) {
 				if (position[1] == 0) {
 					switch (direction) {
 						case UPW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -328,7 +343,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[0]--;
 							break;
 						case RIGHTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -350,7 +365,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[1]--;
 							break;
 						case DOWNW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -369,7 +384,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[0]--;
 							break;
 						case RIGHTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -409,7 +424,7 @@ bool Game::clickedArea(int i, Position a) {
 							else position[0]--;
 							break;
 						case RIGHTW:
-							if (position == initialPosition) {
+							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 								outsideArea[a][i].state = returned;
 								goto end_loop;
 							} else {
@@ -424,7 +439,7 @@ bool Game::clickedArea(int i, Position a) {
 			} else if (position[1] == 0) {
 				switch (direction) {
 					case UPW:
-						if (position == initialPosition) {
+						if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 							outsideArea[a][i].state = returned;
 							goto end_loop;
 						} else {
@@ -474,7 +489,7 @@ bool Game::clickedArea(int i, Position a) {
 						else position[1]--;
 						break;
 					case DOWNW:
-						if (position == initialPosition) {
+						if (position == initialPosition and direction == reverseDirection(initialDirection)) {
 							outsideArea[a][i].state = returned;
 							goto end_loop;
 						} else {
