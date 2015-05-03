@@ -61,14 +61,14 @@ Direction Game::reverseDirection(Direction _direction) {
 	}
 }
 
-bool Game::clickedArea(int i, Position a) {
+bool Game::clickedArea(int i, Position pos) {
 	
 	Direction direction;
 	Direction initialDirection;
 	std::array<int, 2> position;
 	std::array<int, 2> initialPosition;
 	
-	switch (a) {
+	switch (pos) {
 		case TOP:
 			initialDirection = DOWNW;
 			break;
@@ -83,27 +83,27 @@ bool Game::clickedArea(int i, Position a) {
 			break;
 	}
 	direction = initialDirection;
-	switch (a) {
+	switch (pos) {
 		case TOP:
 			position = {i, 0};
 			initialPosition = {i, 0};
-			if (outsideArea[a][i].state != empty) return false;
+			if (outsideArea[pos][i].state != empty) return false;
 			if (board[i][0].containsKitten) {
-				outsideArea[a][i].state = captured;
+				outsideArea[pos][i].state = captured;
 				goto end_loop;
 			} else {
 				if (i == 0) {
 					if (board[i+1][0].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (i == 7) {
 					if (board[i-1][0].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (board[i-1][0].containsKitten or board[i+1][0].containsKitten) {
-					outsideArea[a][i].state = returned;
+					outsideArea[pos][i].state = returned;
 					goto end_loop;
 				}
 			}
@@ -111,23 +111,23 @@ bool Game::clickedArea(int i, Position a) {
 		case BOTTOM:
 			position = {i, 7};
 			initialPosition = {i, 7};
-			if (outsideArea[a][i].state != empty) return false;
+			if (outsideArea[pos][i].state != empty) return false;
 			if (board[i][7].containsKitten) {
-				outsideArea[a][i].state = captured;
+				outsideArea[pos][i].state = captured;
 				goto end_loop;
 			} else {
 				if (i == 0) {
 					if (board[i+1][7].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (i == 7) {
 					if (board[i-1][7].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (board[i-1][7].containsKitten or board[i+1][7].containsKitten) {
-					outsideArea[a][i].state = returned;
+					outsideArea[pos][i].state = returned;
 					goto end_loop;
 				}
 			}
@@ -135,24 +135,24 @@ bool Game::clickedArea(int i, Position a) {
 		case LEFT:
 			position = {0, i};
 			initialPosition = {0, i};
-			if (outsideArea[a][i].state != empty) return false;
+			if (outsideArea[pos][i].state != empty) return false;
 			if (board[0][i].containsKitten) {
-				outsideArea[a][i].state = captured;
+				outsideArea[pos][i].state = captured;
 				goto end_loop;
 			}
 			else {
 				if (i == 0) {
 					if (board[0][i+1].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (i == 7) {
 					if (board[0][i-1].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (board[0][i-1].containsKitten or board[0][i+1].containsKitten) {
-					outsideArea[a][i].state = returned;
+					outsideArea[pos][i].state = returned;
 					goto end_loop;
 				}
 			}
@@ -160,24 +160,24 @@ bool Game::clickedArea(int i, Position a) {
 		case RIGHT:
 			position = {7, i};
 			initialPosition = {7, i};
-			if (outsideArea[a][i].state != empty) return false;
+			if (outsideArea[pos][i].state != empty) return false;
 			if (board[7][i].containsKitten) {
-				outsideArea[a][i].state = captured;
+				outsideArea[pos][i].state = captured;
 				goto end_loop;
 			}
 			else {
 				if (i == 0) {
 					if (board[7][i+1].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (i == 7) {
 					if (board[7][i-1].containsKitten) {
-						outsideArea[a][i].state = returned;
+						outsideArea[pos][i].state = returned;
 						goto end_loop;
 					}
 				} else if (board[7][i-1].containsKitten or board[7][i+1].containsKitten) {
-					outsideArea[a][i].state = returned;
+					outsideArea[pos][i].state = returned;
 					goto end_loop;
 				}
 			}
@@ -191,18 +191,18 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[TOP][position[0]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[TOP][position[0]].deviation = deviations++;
 								goto end_loop;
 							}
 						case DOWNW:
 							if (board[position[0]][position[1]+1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFTW;
@@ -210,18 +210,18 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case LEFTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[LEFT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
 						case RIGHTW:
 							if (board[position[0]+1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
@@ -233,7 +233,7 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (board[position[0]][position[1]-1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]-1].containsKitten) direction = LEFTW;
@@ -241,29 +241,29 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case DOWNW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[BOTTOM][position[0]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[BOTTOM][position[0]].deviation = deviations++;
 								goto end_loop;
 							}
 						case LEFTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[LEFT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
 						case RIGHTW:
 							if (board[position[0]+1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
@@ -275,7 +275,7 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (board[position[0]][position[1]-1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]-1].containsKitten) direction = LEFTW;
@@ -283,7 +283,7 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case DOWNW:
 							if (board[position[0]][position[1]+1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFTW;
@@ -291,18 +291,18 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case LEFTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[LEFT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[LEFT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
 						case RIGHTW:
 							if (board[position[0]+1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							} else if (board[position[0]+1][position[1]-1].containsKitten) {
 								if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFTW;
@@ -317,18 +317,18 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[TOP][position[0]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[TOP][position[0]].deviation = deviations++;
 								goto end_loop;
 							}
 						case DOWNW:
 							if (board[position[0]][position[1]+1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHTW;
@@ -336,7 +336,7 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case LEFTW:
 							if (board[position[0]-1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]+1].containsKitten) direction = UPW;
@@ -344,12 +344,12 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case RIGHTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[RIGHT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
@@ -358,7 +358,7 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (board[position[0]][position[1]-1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]-1].containsKitten) direction = RIGHTW;
@@ -366,18 +366,18 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case DOWNW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[BOTTOM][position[0]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[BOTTOM][position[0]].deviation = deviations++;
 								goto end_loop;
 							}
 						case LEFTW:
 							if (board[position[0]-1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]-1].containsKitten) direction = DOWNW;
@@ -385,12 +385,12 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case RIGHTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[RIGHT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
@@ -399,7 +399,7 @@ bool Game::clickedArea(int i, Position a) {
 					switch (direction) {
 						case UPW:
 							if (board[position[0]][position[1]-1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]-1].containsKitten) direction = RIGHTW;
@@ -407,7 +407,7 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case DOWNW:
 							if (board[position[0]][position[1]+1].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							}
 							if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHTW;
@@ -415,7 +415,7 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case LEFTW:
 							if (board[position[0]-1][position[1]].containsKitten) {
-								outsideArea[a][i].state = captured;
+								outsideArea[pos][i].state = captured;
 								goto end_loop;
 							} else if (board[position[0]-1][position[1]-1].containsKitten) {
 								if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHTW;
@@ -425,12 +425,12 @@ bool Game::clickedArea(int i, Position a) {
 							break;
 						case RIGHTW:
 							if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-								outsideArea[a][i].state = returned;
+								outsideArea[pos][i].state = returned;
 								goto end_loop;
 							} else {
-								outsideArea[a][i].state = deviated;
+								outsideArea[pos][i].state = deviated;
 								outsideArea[RIGHT][position[1]].state = deviated;
-								outsideArea[a][i].deviation = deviations;
+								outsideArea[pos][i].deviation = deviations;
 								outsideArea[RIGHT][position[1]].deviation = deviations++;
 								goto end_loop;
 							}
@@ -440,18 +440,18 @@ bool Game::clickedArea(int i, Position a) {
 				switch (direction) {
 					case UPW:
 						if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-							outsideArea[a][i].state = returned;
+							outsideArea[pos][i].state = returned;
 							goto end_loop;
 						} else {
-							outsideArea[a][i].state = deviated;
+							outsideArea[pos][i].state = deviated;
 							outsideArea[TOP][position[0]].state = deviated;
-							outsideArea[a][i].deviation = deviations;
+							outsideArea[pos][i].deviation = deviations;
 							outsideArea[TOP][position[0]].deviation = deviations++;
 							goto end_loop;
 						}
 					case DOWNW:
 						if (board[position[0]][position[1]+1].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						} else if (board[position[0]-1][position[1]+1].containsKitten) {
 							if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
@@ -461,7 +461,7 @@ bool Game::clickedArea(int i, Position a) {
 						break;
 					case LEFTW:
 						if (board[position[0]-1][position[1]].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						}
 						if (board[position[0]-1][position[1]+1].containsKitten) direction = UPW;
@@ -469,7 +469,7 @@ bool Game::clickedArea(int i, Position a) {
 						break;
 					case RIGHTW:
 						if (board[position[0]+1][position[1]].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						}
 						if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
@@ -480,7 +480,7 @@ bool Game::clickedArea(int i, Position a) {
 				switch (direction) {
 					case UPW:
 						if (board[position[0]][position[1]-1].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						} else if (board[position[0]-1][position[1]-1].containsKitten) {
 							if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
@@ -490,18 +490,18 @@ bool Game::clickedArea(int i, Position a) {
 						break;
 					case DOWNW:
 						if (position == initialPosition and direction == reverseDirection(initialDirection)) {
-							outsideArea[a][i].state = returned;
+							outsideArea[pos][i].state = returned;
 							goto end_loop;
 						} else {
-							outsideArea[a][i].state = deviated;
+							outsideArea[pos][i].state = deviated;
 							outsideArea[BOTTOM][position[0]].state = deviated;
-							outsideArea[a][i].deviation = deviations;
+							outsideArea[pos][i].deviation = deviations;
 							outsideArea[BOTTOM][position[0]].deviation = deviations++;
 							goto end_loop;
 						}
 					case LEFTW:
 						if (board[position[0]-1][position[1]].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						}
 						if (board[position[0]-1][position[1]-1].containsKitten) direction = DOWNW;
@@ -509,7 +509,7 @@ bool Game::clickedArea(int i, Position a) {
 						break;
 					case RIGHTW:
 						if (board[position[0]+1][position[1]].containsKitten) {
-							outsideArea[a][i].state = captured;
+							outsideArea[pos][i].state = captured;
 							goto end_loop;
 						}
 						if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
@@ -521,7 +521,7 @@ bool Game::clickedArea(int i, Position a) {
 		switch (direction) {
 			case UPW:
 				if (board[position[0]][position[1]-1].containsKitten) {
-					outsideArea[a][i].state = captured;
+					outsideArea[pos][i].state = captured;
 					goto end_loop;
 				} else if (board[position[0]-1][position[1]-1].containsKitten) {
 					if (board[position[0]+1][position[1]-1].containsKitten) direction = DOWNW;
@@ -531,7 +531,7 @@ bool Game::clickedArea(int i, Position a) {
 				break;
 			case DOWNW:
 				if (board[position[0]][position[1]+1].containsKitten) {
-					outsideArea[a][i].state = captured;
+					outsideArea[pos][i].state = captured;
 					goto end_loop;
 				} else if (board[position[0]-1][position[1]+1].containsKitten) {
 					if (board[position[0]+1][position[1]+1].containsKitten) direction = UPW;
@@ -541,7 +541,7 @@ bool Game::clickedArea(int i, Position a) {
 				break;
 			case LEFTW:
 				if (board[position[0]-1][position[1]].containsKitten) {
-					outsideArea[a][i].state = captured;
+					outsideArea[pos][i].state = captured;
 					goto end_loop;
 				} else if (board[position[0]-1][position[1]-1].containsKitten) {
 					if (board[position[0]-1][position[1]+1].containsKitten) direction = RIGHTW;
@@ -551,7 +551,7 @@ bool Game::clickedArea(int i, Position a) {
 				break;
 			case RIGHTW:
 				if (board[position[0]+1][position[1]].containsKitten) {
-					outsideArea[a][i].state = captured;
+					outsideArea[pos][i].state = captured;
 					goto end_loop;
 				} else if (board[position[0]+1][position[1]-1].containsKitten) {
 					if (board[position[0]+1][position[1]+1].containsKitten) direction = LEFTW;
@@ -561,7 +561,7 @@ bool Game::clickedArea(int i, Position a) {
 				break;
 		}
 		std::cout << position[0] << " " << position[1] << "\n";
-		if (outsideArea[a][i].state != empty) break;
+		if (outsideArea[pos][i].state != empty) break;
 	}
 end_loop:
 	std::string state[] = {
@@ -570,6 +570,6 @@ end_loop:
 		"captured",
 		"deviated"
 	};
-	std::cout << state[outsideArea[a][i].state] << "\n";
+	std::cout << state[outsideArea[pos][i].state] << "\n";
 	return true;
 }
