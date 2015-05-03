@@ -35,7 +35,6 @@ int main(int argc, const char * argv[]) {
 		if (game.getBoard()[firstGen][secondGen].containsKitten) i--;
 		else game.setContainsKitten(firstGen, secondGen, true);
 	}
-	
 	while(true) {
 		ui->update();
 		ui->handle_events();
