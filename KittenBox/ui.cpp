@@ -5,8 +5,10 @@
 
 UI::UI(Game* _game) {
   game = _game;
-  width = 800;
-  height = 800;
+  width = 1000;
+  height = 1000;
+  insideWidth = 850;
+  insideHeight = 850;
   
   SDL_Init(SDL_INIT_VIDEO);
   SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -18,6 +20,10 @@ UI::UI(Game* _game) {
   texture_loading_surface = SDL_LoadBMP("kitten.bmp");
   kitten_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);
   SDL_FreeSurface(texture_loading_surface);
+  texture_loading_surface = SDL_LoadBMP("redx.bmp");
+  cross_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);
+  SDL_FreeSurface(texture_loading_surface);
+  
   
   colours[empty] = {92, 92, 92, 255};
   colours[returned] = {0xff, 0x56, 0xc1, 255};
@@ -39,6 +45,8 @@ UI::UI(Game* _game) {
   colours[17] = {255, 60, 1, 255};
   colours[18] = {109, 146, 241, 255};
   colours[19] = {255, 174, 186, 255};
+  
+  showKittensButton = new SDL_Rect;
 }
 
 void UI::update() {
@@ -58,7 +66,9 @@ void UI::handle_events() {
         switch (event.window.event) {
           case SDL_WINDOWEVENT_SIZE_CHANGED:
             width = event.window.data1;
+            insideWidth = width * 0.85;
             height = event.window.data2;
+            insideHeight = height * 0.85;
             break;
         }
         break;
@@ -75,24 +85,22 @@ void UI::draw_background() {
 }
 
 void UI::draw_boxes_and_triangles() {
-  SDL_Point triangle [8]; //With 8 points, triangles of double thickness can be drawn
-  int half_box_width;
-  int triangle_side_length;
-  int triangle_height;
-  int length = (width < height ? width : height);
-  int boxes_start_x, boxes_end_x; //Used for drawing left and right triangles
   OutsideArea triangle_state;
   SDL_Colour tri_col = {0, 0, 0, 255}; //Temporarily store colour for each triangle
+  length = (insideWidth < insideHeight ? insideWidth : insideHeight);
   
   for (int y = 0; y < 8; y++) { //8 x 8 grid of boxes
     SDL_Rect box;
     for (int x = 0; x < 8; x++) {
-      box.x = (int) (length < width ? ((width - length) / 2) : 0) + ((length / 10) + x * (length / 10 - 1));
-      box.y = (int) (length < height ? ((height - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
+      box.x = (int) (length < insideWidth ? ((insideWidth - length) / 2) : 0) + ((length / 10) + x * (length / 10 - 1));
+      box.y = (int) (length < insideHeight ? ((insideHeight - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
       box.w = length/10;
       box.h = length/10;
-      if (game->getBoard()[x][y].containsKitten) {
+      if (game->getBoard()[x][y].containsKitten && game->areKittensShown()) {
         SDL_RenderCopy(renderer, kitten_texture, NULL, &box); //Draw kitten texture inside box
+      }
+      if (game->isPlayerSelected(x, y)) {
+        SDL_RenderCopy(renderer, cross_texture, NULL, &box); //Draw cross texture inside box
       }
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, 227); //Boxes colour
       SDL_RenderDrawRect(renderer, &box);
@@ -149,6 +157,22 @@ void UI::draw_boxes_and_triangles() {
         store_triangle_boundaries(triangle, BOTTOM, x);
       }
     }
+    //Draw showKitten button
+    if (width > height) {
+      // Draw on the right
+      showKittensButton->x = width * 0.85;
+      showKittensButton->y = height * 0.15;
+      showKittensButton->w = box.w;
+      showKittensButton->h = box.h;
+    } else {
+      // Draw at the bottom
+      showKittensButton->x = width * 0.15;
+      showKittensButton->y = height * 0.85;
+      showKittensButton->w = box.w;
+      showKittensButton->h = box.h;
+    }
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 227); //Button colour
+    SDL_RenderDrawRect(renderer, showKittensButton);
     //Draw left triangle for this row
     triangle_state = game->getOutsideArea()[LEFT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
@@ -210,6 +234,19 @@ void UI::handle_mouse_click(int x, int y) {
         game->clickedArea(b, (Position) p);
       }
     }
+  }
+  if (x > showKittensButton->x && x < showKittensButton->x + showKittensButton->w
+      && y > showKittensButton->y && y < showKittensButton->y + showKittensButton->h) {
+    if (game->areKittensShown()) game->hideKittens();
+    else game->showKittens();
+  }
+  int _width = length / 10;
+  int _boxes_start_x = boxes_start_x + _width;
+  int _boxes_end_x = boxes_end_x - _width;
+  if (x > _boxes_start_x && x < _boxes_end_x && y > _boxes_start_x && y < _boxes_end_x) {
+    int _x = floorf((x - _boxes_start_x) / _width);
+    int _y = floorf((y - _boxes_start_x + _width) / _width);
+    game->setPlayerSelected(_x, _y, !game->isPlayerSelected(_x, _y));
   }
 }
 

@@ -44,6 +44,10 @@ void Game::setPlayerSelected(int column, int row, bool value) {
 	board[column][row].playerSelected = value;
 }
 
+bool Game::isPlayerSelected(int column, int row) {
+	return board[column][row].playerSelected;
+}
+
 std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() {
 	return outsideArea;
 }
@@ -572,4 +576,16 @@ end_loop:
 	};
 	std::cout << state[outsideArea[pos][i].state] << "\n";
 	return true;
+}
+
+void Game::showKittens() {
+	kittensShown = true;
+}
+
+void Game::hideKittens() {
+	kittensShown = false;
+}
+
+bool Game::areKittensShown() {
+	return kittensShown;
 }

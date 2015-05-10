@@ -19,11 +19,21 @@ class UI {
   SDL_Renderer* renderer;
   SDL_Surface* texture_loading_surface;
   SDL_Texture* kitten_texture;
+  SDL_Texture* cross_texture;
+  SDL_Rect* showKittensButton;
   Game* game;
   SDL_Colour colours [20];
   
   int width;
   int height;
+  int insideWidth;
+  int insideHeight;
+  SDL_Point triangle [8]; //With 8 points, triangles of double thickness can be drawn
+  int half_box_width;
+  int triangle_side_length;
+  int triangle_height;
+  int length;
+  int boxes_start_x, boxes_end_x; //Used for drawing left and right triangles
 
   std::array<std::array<std::array<SDL_Point, 3>, 8>, 4> button_boundaries;
   

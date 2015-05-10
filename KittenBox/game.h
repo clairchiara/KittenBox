@@ -48,15 +48,20 @@ private:
 	int deviations = 1;
 	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
+	bool kittensShown = false;
 public:
 	Game();
 	std::array<std::array<Cell, 8>, 8> getBoard();
 	void setBoard(std::array<std::array<Cell, 8>, 8>);
 	void setContainsKitten(int, int, bool);
 	void setPlayerSelected(int, int, bool);
+	bool isPlayerSelected(int, int);
 	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
 	Direction reverseDirection(Direction);
 	bool clickedArea(int, Position);
+	void showKittens();
+	void hideKittens();
+	bool areKittensShown();
 };
 
 #endif /* defined(__KittenBox__game__) */
