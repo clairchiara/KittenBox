@@ -28,6 +28,7 @@
 		7636555D1A4E00470046EB79 /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		764134821A48C90A00DDB0F2 /* ui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.cpp.cpp; path = ui.cpp; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		7644616F1A4B521C004A618D /* kitten.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = kitten.bmp; sourceTree = "<group>"; };
+		7656EA861AFFB96000014D6A /* redx.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = redx.bmp; sourceTree = "<group>"; };
 		76B04E3C1A48B067009C0397 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		76B04E3D1A48B067009C0397 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = game.h; sourceTree = "<group>"; };
 		76F029011A32491600FBC8E2 /* KittenBox */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = KittenBox; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +65,7 @@
 		76F029031A32491600FBC8E2 /* KittenBox */ = {
 			isa = PBXGroup;
 			children = (
+				7656EA861AFFB96000014D6A /* redx.bmp */,
 				7644616F1A4B521C004A618D /* kitten.bmp */,
 				764134821A48C90A00DDB0F2 /* ui.cpp */,
 				7636555D1A4E00470046EB79 /* ui.h */,
