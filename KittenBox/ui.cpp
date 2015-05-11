@@ -241,9 +241,10 @@ void UI::handle_mouse_click(int x, int y) {
     else game->showKittens();
   }
   int _width = length / 10;
-  int _boxes_start_x = boxes_start_x + _width;
-  int _boxes_end_x = boxes_end_x - _width;
-  if (x > _boxes_start_x && x < _boxes_end_x && y > _boxes_start_x && y < _boxes_end_x) {
+  int _boxes_start_x = boxes_start_x;
+  int _boxes_end_x = boxes_end_x;
+  if (x >= _boxes_start_x && x <= _boxes_end_x && y >= _boxes_start_x - _width && y <= _boxes_end_x - _width) {
+    std::cout << "INSIDE " << std::time(0) << "\n";
     int _x = floorf((x - _boxes_start_x) / _width);
     int _y = floorf((y - _boxes_start_x + _width) / _width);
     game->setPlayerSelected(_x, _y, !game->isPlayerSelected(_x, _y));
