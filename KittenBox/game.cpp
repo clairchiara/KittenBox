@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <random>
 
 #include "game.h"
 
@@ -25,6 +26,17 @@ Game::Game() {
 		outsideArea[LEFT][i].deviation = 0;
 		outsideArea[RIGHT][i].state = empty;
 		outsideArea[RIGHT][i].deviation = 0;
+	}
+	for (int i = 0; i < 4; i++) {
+		
+		uint seed = (uint)(time(nullptr) * 0.05);
+		std::mt19937 gen(seed * (time(nullptr) % 10));
+		std::uniform_int_distribution<> dis(0,7);
+		int firstGen = dis(gen);
+		int secondGen = dis(gen);
+		
+		if (board[firstGen][secondGen].containsKitten) i--;
+		else board[firstGen][secondGen].containsKitten = true;
 	}
 }
 

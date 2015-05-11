@@ -21,6 +21,7 @@ class UI {
   SDL_Texture* kitten_texture;
   SDL_Texture* cross_texture;
   SDL_Rect* showKittensButton;
+  SDL_Rect* newGameButton;
   Game* game;
   SDL_Colour colours [20];
   

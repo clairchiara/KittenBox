@@ -47,6 +47,7 @@ UI::UI(Game* _game) {
   colours[19] = {255, 174, 186, 255};
   
   showKittensButton = new SDL_Rect;
+  newGameButton = new SDL_Rect;
 }
 
 void UI::update() {
@@ -171,8 +172,23 @@ void UI::draw_boxes_and_triangles() {
       showKittensButton->w = box.w;
       showKittensButton->h = box.h;
     }
+    //Draw newGame button
+    if (width > height) {
+      // Draw on the right
+      newGameButton->x = width * 0.85;
+      newGameButton->y = height * 0.85;
+      newGameButton->w = box.w;
+      newGameButton->h = box.h;
+    } else {
+      // Draw at the bottom
+      newGameButton->x = width * 0.85;
+      newGameButton->y = height * 0.85;
+      newGameButton->w = box.w;
+      newGameButton->h = box.h;
+    }
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 227); //Button colour
     SDL_RenderDrawRect(renderer, showKittensButton);
+    SDL_RenderDrawRect(renderer, newGameButton);
     //Draw left triangle for this row
     triangle_state = game->getOutsideArea()[LEFT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
@@ -239,6 +255,11 @@ void UI::handle_mouse_click(int x, int y) {
       && y > showKittensButton->y && y < showKittensButton->y + showKittensButton->h) {
     if (game->areKittensShown()) game->hideKittens();
     else game->showKittens();
+  }
+  if (x > newGameButton->x && x < newGameButton->x + newGameButton->w
+      && y > newGameButton->y && y < newGameButton->y + newGameButton->h) {
+    delete game;
+    game = new Game;
   }
   int _width = length / 10;
   int _boxes_start_x = boxes_start_x;
