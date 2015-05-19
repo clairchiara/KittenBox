@@ -81,9 +81,19 @@ void UI::handle_events() {
   }
 }
 
+//TODO: complete loading_screen()
+
 void UI::loading_screen() {
-  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_Rect box;
+  SDL_SetRenderDrawColor(renderer, 0xf8, 0xb5, 0xcb, 255);
+  box.x = 0;
+  box.y = 0;
+  box.w = width;
+  box.h = height;
+  SDL_RenderDrawRect(renderer, &box);
   SDL_RenderClear(renderer);
+  SDL_RenderPresent(renderer);
+  SDL_Delay(2000);
 }
 
 void UI::draw_background() {
