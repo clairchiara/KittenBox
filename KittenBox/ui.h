@@ -14,6 +14,10 @@ class UI {
   
   void handle_events();
   
+  void loading_screen();
+  
+  bool is_game_loaded();
+  
  private:
   SDL_Window* window;
   SDL_Renderer* renderer;
@@ -35,6 +39,7 @@ class UI {
   int triangle_height;
   int length;
   int boxes_start_x, boxes_end_x; //Used for drawing left and right triangles
+  bool game_loaded;
 
   std::array<std::array<std::array<SDL_Point, 3>, 8>, 4> button_boundaries;
   

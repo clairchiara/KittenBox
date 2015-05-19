@@ -17,9 +17,14 @@ Game *game;
 UI *ui;
 
 int main(int argc, const char * argv[]) {
+	
 	game = new Game;
 	ui = new UI(game);
-	while(true) {
+	
+	while (!ui->is_game_loaded()) {
+		ui->loading_screen();
+	}
+	while(ui->is_game_loaded()) {
 		ui->update();
 		ui->handle_events();
 	}

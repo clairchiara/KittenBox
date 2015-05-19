@@ -45,7 +45,7 @@ struct OutsideArea {
 
 class Game {
 private:
-	int deviations = 1;
+	int deviations;;
 	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
 	bool kittensShown = false;

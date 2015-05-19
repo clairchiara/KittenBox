@@ -4,6 +4,7 @@
 #include "ui.h"
 
 UI::UI(Game* _game) {
+  game_loaded = false;
   game = _game;
   width = 1000;
   height = 1000;
@@ -28,7 +29,6 @@ UI::UI(Game* _game) {
   colours[empty] = {92, 92, 92, 255};
   colours[returned] = {0xff, 0x56, 0xc1, 255};
   colours[captured] = {0x56, 0xff, 0xd2, 0xff};
-//  colours[deviated] = {137, 102, 215, 255};
   colours[4] = {41, 128, 77, 255};
   colours[5] = {0, 5, 194, 255};
   colours[6] = {52, 90, 227, 255};
@@ -48,6 +48,7 @@ UI::UI(Game* _game) {
   
   showKittensButton = new SDL_Rect;
   newGameButton = new SDL_Rect;
+  game_loaded = true;
 }
 
 void UI::update() {
@@ -80,6 +81,11 @@ void UI::handle_events() {
   }
 }
 
+void UI::loading_screen() {
+  SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+  SDL_RenderClear(renderer);
+}
+
 void UI::draw_background() {
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   SDL_RenderClear(renderer);
@@ -93,8 +99,10 @@ void UI::draw_boxes_and_triangles() {
   for (int y = 0; y < 8; y++) { //8 x 8 grid of boxes
     SDL_Rect box;
     for (int x = 0; x < 8; x++) {
-      box.x = (int) (length < insideWidth ? ((insideWidth - length) / 2) : 0) + ((length / 10) + x * (length / 10 - 1));
-      box.y = (int) (length < insideHeight ? ((insideHeight - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
+      box.x = (int) (length < insideWidth ?
+                     ((insideWidth - length) / 2) : 0) + ((length / 10) + x * (length / 10 - 1));
+      box.y = (int) (length < insideHeight ?
+                     ((insideHeight - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
       box.w = length/10;
       box.h = length/10;
       if (game->getBoard()[x][y].containsKitten && game->areKittensShown()) {
@@ -118,11 +126,6 @@ void UI::draw_boxes_and_triangles() {
         triangle_state = game->getOutsideArea()[TOP][x];
         tri_col = colours[triangle_state.state + triangle_state.deviation];
         
-        //        if (game->getOutsideArea()[TOP][x].state == deviated) { //If deviated, multiply colours so that each deviation has a unique shade
-        //          tri_col.r += triangle_state.deviation * 5;
-        //          tri_col.g += triangle_state.deviation * 5;
-        //          tri_col.b += triangle_state.deviation * 5;
-        //        }
         SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
         
         triangle[0] = {box.x + half_box_width, box.y - 3};
@@ -140,12 +143,8 @@ void UI::draw_boxes_and_triangles() {
         triangle_state = game->getOutsideArea()[BOTTOM][x];
         tri_col = colours[triangle_state.state + triangle_state.deviation];
         
-        //        if (game->getOutsideArea()[BOTTOM][x].state == deviated) { //If deviated, multiply colours so that each deviation has a unique shade
-        //          tri_col.r += triangle_state.deviation * 5;
-        //          tri_col.g += triangle_state.deviation * 5;
-        //          tri_col.b += triangle_state.deviation * 5;
-        //        }
         SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
+        
         triangle[0] = {box.x + half_box_width, box.y + box.h + 3};
         triangle[1] = {box.x + 3, box.y + box.h + triangle_height + 3};
         triangle[2] = {box.x + (half_box_width * 2) - 3, box.y + box.h + triangle_height + 3};
@@ -192,13 +191,9 @@ void UI::draw_boxes_and_triangles() {
     //Draw left triangle for this row
     triangle_state = game->getOutsideArea()[LEFT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
-    
-    //    if (game->getOutsideArea()[LEFT][y].state == deviated) { //If deviated, multiply colours so that each deviation has a unique shade
-    //      tri_col.r += triangle_state.deviation * 5;
-    //      tri_col.g += triangle_state.deviation * 5;
-    //      tri_col.b += triangle_state.deviation * 5;
-    //    }
+
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
+    
     triangle[0] = {boxes_start_x - 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x - triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};
@@ -214,12 +209,8 @@ void UI::draw_boxes_and_triangles() {
     triangle_state = game->getOutsideArea()[RIGHT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
     
-    //    if (game->getOutsideArea()[RIGHT][y].state == deviated) { //If deviated, multiply colours so that each deviation has a unique shade
-    //      tri_col.r += triangle_state.deviation * 5;
-    //      tri_col.g += triangle_state.deviation * 5;
-    //      tri_col.b += triangle_state.deviation * 5;
-    //    }
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
+    
     triangle[0] = {boxes_end_x + 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x + triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};
@@ -276,4 +267,8 @@ inline void UI::store_triangle_boundaries(SDL_Point* triangle, Position position
   button_boundaries[position][button][0] = triangle[0];
   button_boundaries[position][button][1] = triangle[1];
   button_boundaries[position][button][2] = triangle[2];
+}
+
+bool UI::is_game_loaded() {
+  return game_loaded;
 }
