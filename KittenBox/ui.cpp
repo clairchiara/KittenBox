@@ -19,7 +19,9 @@ UI::UI(Game* _game) {
   SDL_SetWindowTitle(window, "KittenBox");
   
   texture_loading_surface = SDL_LoadBMP("kitten.bmp");
+  if (texture_loading_surface == NULL) std::cout << "Error loading kitten.bmp" << std::endl << SDL_GetError() << std::endl << SDL_GetBasePath() << std::endl;
   kitten_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);
+  if (kitten_texture == NULL) std::cout << "Error in kitten_surface" << std::endl;
   SDL_FreeSurface(texture_loading_surface);
   texture_loading_surface = SDL_LoadBMP("redx.bmp");
   cross_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);

@@ -13,10 +13,10 @@
 #include "game.h"
 #include "ui.h"
 
-Game *game;
-UI *ui;
-
 int main(int argc, const char * argv[]) {
+	
+	Game *game;
+	UI *ui;
 	
 	game = new Game;
 	ui = new UI(game);

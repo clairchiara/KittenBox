@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		764134831A48C90A00DDB0F2 /* ui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 764134821A48C90A00DDB0F2 /* ui.cpp */; };
 		76B04E3E1A48B067009C0397 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B04E3C1A48B067009C0397 /* game.cpp */; };
+		76B174DE1CC4EA20003D19A6 /* kitten.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7644616F1A4B521C004A618D /* kitten.bmp */; };
+		76B174DF1CC4EA20003D19A6 /* redx.bmp in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7647CC871B00EDB4002F74FC /* redx.bmp */; };
 		76F029051A32491600FBC8E2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76F029041A32491600FBC8E2 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +21,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				76B174DE1CC4EA20003D19A6 /* kitten.bmp in CopyFiles */,
+				76B174DF1CC4EA20003D19A6 /* redx.bmp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
