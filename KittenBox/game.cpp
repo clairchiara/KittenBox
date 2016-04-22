@@ -45,8 +45,8 @@ std::array<std::array<Cell, 8>, 8> Game::getBoard() {
 	return board;
 }
 
-void Game::setBoard(std::array<std::array<Cell, 8>, 8> _board) {
-	board = _board;
+void Game::setBoard(std::array<std::array<Cell, 8>, 8> board) {
+	this->board = board;
 }
 
 void Game::setContainsKitten(int column, int row, bool value) {
@@ -65,8 +65,8 @@ std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() {
 	return outsideArea;
 }
 
-Direction Game::reverseDirection(Direction _direction) {
-	switch (_direction) {
+Direction Game::reverseDirection(Direction direction) {
+	switch (direction) {
 		case UPW:
 			return DOWNW;
 		case DOWNW:

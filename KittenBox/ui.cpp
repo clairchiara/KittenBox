@@ -127,12 +127,12 @@ void UI::draw_boxes_and_triangles() {
       SDL_RenderDrawRect(renderer, &box);
       
       if (x == 0) {
-        boxes_start_x = box.x;
+        this->boxes_start_x = box.x;
         half_box_width = box.w/2;
         triangle_side_length = half_box_width-6;
         triangle_height = (int) sqrt(pow(triangle_side_length, 2.0) + pow(triangle_side_length/2.0, 2.0));
       } else if (x == 7) {
-        boxes_end_x = box.x + box.w;
+        this->boxes_end_x = box.x + box.w;
       }
       if (y == 0) { //Draw top triangle for this column
         triangle_state = game->getOutsideArea()[TOP][x];
@@ -206,7 +206,7 @@ void UI::draw_boxes_and_triangles() {
 
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
     
-    triangle[0] = {boxes_start_x - 3, box.y + half_box_width};
+    triangle[0] = {this->boxes_start_x - 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x - triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};
     triangle[3] = triangle[0];
@@ -223,7 +223,7 @@ void UI::draw_boxes_and_triangles() {
     
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
     
-    triangle[0] = {boxes_end_x + 3, box.y + half_box_width};
+    triangle[0] = {this->boxes_end_x + 3, box.y + half_box_width};
     triangle[1] = {triangle[0].x + triangle_height, box.y + 3};
     triangle[2] = {triangle[1].x, box.y + box.w - 3};
     triangle[3] = triangle[0];
@@ -264,13 +264,13 @@ void UI::handle_mouse_click(int x, int y) {
     delete game;
     game = new Game;
   }
-  int _width = length / 10;
-  int _boxes_start_x = boxes_start_x;
-  int _boxes_end_x = boxes_end_x;
-  if (x >= _boxes_start_x && x <= _boxes_end_x && y >= _boxes_start_x - _width && y <= _boxes_end_x - _width) {
+  int width = length / 10;
+  int boxes_start_x = this->boxes_start_x;
+  int boxes_end_x = this->boxes_end_x;
+  if (x >= boxes_start_x && x <= boxes_end_x && y >= boxes_start_x - width && y <= boxes_end_x - width) {
     std::cout << "INSIDE " << std::time(0) << "\n";
-    int _x = floorf((x - _boxes_start_x) / _width);
-    int _y = floorf((y - _boxes_start_x + _width) / _width);
+    int _x = floorf((x - boxes_start_x) / width);
+    int _y = floorf((y - boxes_start_x + width) / width);
     game->setPlayerSelected(_x, _y, !game->isPlayerSelected(_x, _y));
   }
 }
