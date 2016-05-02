@@ -118,7 +118,7 @@ void UI::draw_boxes_and_triangles() {
                      ((insideHeight - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
       box.w = length/10;
       box.h = length/10;
-      if (game.getBoard()[x][y].containsKitten && game.areKittensShown()) {
+      if (game.getBoard()[x][y].containsKitten and game.areKittensShown()) {
         SDL_RenderCopy(renderer, kitten_texture, NULL, &box); //Draw kitten texture inside box
       }
       if (game.isPlayerSelected(x, y)) {
@@ -249,30 +249,30 @@ void UI::handle_mouse_click(const int& x, const int& y) {
       side_of_edge[1] = on_which_side_of_triangle_edge(x, y, button_boundaries[p][b][1], button_boundaries[p][b][2]);
       side_of_edge[2] = on_which_side_of_triangle_edge(x, y, button_boundaries[p][b][2], button_boundaries[p][b][0]);
       
-      if ((side_of_edge[0] == side_of_edge[1]) && (side_of_edge[1] == side_of_edge[2])) {
+      if ((side_of_edge[0] == side_of_edge[1]) and (side_of_edge[1] == side_of_edge[2])) {
         std::cout << "Clicked " << p << " " << b << std::endl;
         game.clickedArea(b, (Position) p);
       }
     }
   }
-  if (x > showKittensButton->x && x < showKittensButton->x + showKittensButton->w
-      && y > showKittensButton->y && y < showKittensButton->y + showKittensButton->h) {
+  if (x > showKittensButton->x and x < showKittensButton->x + showKittensButton->w
+      and y > showKittensButton->y and y < showKittensButton->y + showKittensButton->h) {
     if (game.areKittensShown()) game.hideKittens();
     else game.showKittens();
   }
-  if (x > newGameButton->x && x < newGameButton->x + newGameButton->w
-      && y > newGameButton->y && y < newGameButton->y + newGameButton->h) {
+  if (x > newGameButton->x and x < newGameButton->x + newGameButton->w
+      and y > newGameButton->y and y < newGameButton->y + newGameButton->h) {
     Game newGame;
     game = newGame;
   }
   int width = length / 10;
   int boxes_start_x = this->boxes_start_x;
   int boxes_end_x = this->boxes_end_x;
-  if (x >= boxes_start_x && x <= boxes_end_x && y >= boxes_start_x - width && y <= boxes_end_x - width) {
+  if (x >= boxes_start_x and x <= boxes_end_x and y >= boxes_start_x - width and y <= boxes_end_x - width) {
     std::cout << "INSIDE " << std::time(0) << "\n";
     int tmp_x = floorf((x - boxes_start_x) / width);
     int tmp_y = floorf((y - boxes_start_x + width) / width);
-    game.setPlayerSelected(tmp_x, tmp_y, !game.isPlayerSelected(tmp_x, tmp_y));
+    game.setPlayerSelected(tmp_x, tmp_y, not game.isPlayerSelected(tmp_x, tmp_y));
   }
 }
 

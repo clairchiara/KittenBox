@@ -17,7 +17,7 @@ int main(int argc, const char * argv[]) {
 	
 	UI ui;
 	
-	while (!ui.is_game_loaded()) {
+	while (not ui.is_game_loaded()) {
 		ui.loading_screen();
 	}
 	while(ui.is_game_loaded()) {
