@@ -8,7 +8,9 @@
 
 class UI {
  public:
-  UI(Game* _game);
+  UI();
+  
+  UI(const UI&) = delete;
   
   void update();
   
@@ -16,7 +18,7 @@ class UI {
   
   void loading_screen();
   
-  bool is_game_loaded();
+  bool is_game_loaded() const;
   
  private:
   SDL_Window* window;
@@ -26,7 +28,7 @@ class UI {
   SDL_Texture* cross_texture;
   SDL_Rect* showKittensButton;
   SDL_Rect* newGameButton;
-  Game* game;
+  Game game;
   SDL_Colour colours [20];
   
   int width;
@@ -43,15 +45,15 @@ class UI {
 
   std::array<std::array<std::array<SDL_Point, 3>, 8>, 4> button_boundaries;
   
-  void draw_background();
+  void draw_background() const;
   
   void draw_boxes_and_triangles();
 
-  bool on_which_side_of_triangle_edge(int x, int y, SDL_Point v1, SDL_Point v2);
+  bool on_which_side_of_triangle_edge(const int&, const int&, const SDL_Point&, const SDL_Point&) const;
 
-  void handle_mouse_click(int x, int y);
+  void handle_mouse_click(const int& x, const int& y);
 
-  inline void store_triangle_boundaries(SDL_Point* triangle, Position position, int button);
+  inline void store_triangle_boundaries(const SDL_Point*, const Position& position, const int& button);
 };
 
 #endif

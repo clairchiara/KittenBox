@@ -12,8 +12,8 @@
 
 #include "game.h"
 
-Game::Game() {
-	deviations = 1;
+Game::Game() : deviations(1), kittensShown(false) {
+	std::cout << "INITIALISED" << std::endl;
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			board[i][j].containsKitten = false;
@@ -41,31 +41,31 @@ Game::Game() {
 	}
 }
 
-std::array<std::array<Cell, 8>, 8> Game::getBoard() {
+std::array<std::array<Cell, 8>, 8> Game::getBoard() const {
 	return board;
 }
 
-void Game::setBoard(std::array<std::array<Cell, 8>, 8> board) {
+void Game::setBoard(const std::array<std::array<Cell, 8>, 8>& board) {
 	this->board = board;
 }
 
-void Game::setContainsKitten(int column, int row, bool value) {
+void Game::setContainsKitten(const int& column, const int& row, const bool& value) {
 	board[column][row].containsKitten = value;
 }
 
-void Game::setPlayerSelected(int column, int row, bool value) {
+void Game::setPlayerSelected(const int& column, const int& row, const bool& value) {
 	board[column][row].playerSelected = value;
 }
 
-bool Game::isPlayerSelected(int column, int row) {
+bool Game::isPlayerSelected(const int& column, const int& row) {
 	return board[column][row].playerSelected;
 }
 
-std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() {
+std::array<std::array<OutsideArea, 8>, 4> Game::getOutsideArea() const {
 	return outsideArea;
 }
 
-Direction Game::reverseDirection(Direction direction) {
+Direction Game::reverseDirection(const Direction& direction) const {
 	switch (direction) {
 		case UPW:
 			return DOWNW;
@@ -79,7 +79,7 @@ Direction Game::reverseDirection(Direction direction) {
 }
 
 
-bool Game::clickedArea(int i, Position pos) {
+bool Game::clickedArea(const int& i, const Position& pos) {
 	
 	Direction direction;
 	Direction initialDirection;
@@ -602,6 +602,6 @@ void Game::hideKittens() {
 	kittensShown = false;
 }
 
-bool Game::areKittensShown() {
+bool Game::areKittensShown() const {
 	return kittensShown;
 }

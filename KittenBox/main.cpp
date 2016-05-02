@@ -15,18 +15,14 @@
 
 int main(int argc, const char * argv[]) {
 	
-	Game *game;
-	UI *ui;
+	UI ui;
 	
-	game = new Game;
-	ui = new UI(game);
-	
-	while (!ui->is_game_loaded()) {
-		ui->loading_screen();
+	while (!ui.is_game_loaded()) {
+		ui.loading_screen();
 	}
-	while(ui->is_game_loaded()) {
-		ui->update();
-		ui->handle_events();
+	while(ui.is_game_loaded()) {
+		ui.update();
+		ui.handle_events();
 	}
 	
     return 0;

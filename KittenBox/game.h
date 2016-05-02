@@ -45,23 +45,23 @@ struct OutsideArea {
 
 class Game {
 private:
-	int deviations;;
+	int deviations;
 	std::array<std::array<OutsideArea, 8>, 4> outsideArea;
 	std::array<std::array<Cell, 8>, 8> board;
-	bool kittensShown = false;
+	bool kittensShown;
 public:
 	Game();
-	std::array<std::array<Cell, 8>, 8> getBoard();
-	void setBoard(std::array<std::array<Cell, 8>, 8>);
-	void setContainsKitten(int, int, bool);
-	void setPlayerSelected(int, int, bool);
-	bool isPlayerSelected(int, int);
-	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea();
-	Direction reverseDirection(Direction);
-	bool clickedArea(int, Position);
+	std::array<std::array<Cell, 8>, 8> getBoard() const;
+	void setBoard(std::array<std::array<Cell, 8>, 8> const&);
+	void setContainsKitten(const int&, const int&, const bool&);
+	void setPlayerSelected(const int&, const int&, const bool&);
+	bool isPlayerSelected(const int&, const int&);
+	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea() const;
+	Direction reverseDirection(const Direction&) const;
+	bool clickedArea(const int&, const Position&);
 	void showKittens();
 	void hideKittens();
-	bool areKittensShown();
+	bool areKittensShown() const;
 };
 
 #endif /* defined(__KittenBox__game__) */

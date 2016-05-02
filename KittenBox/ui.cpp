@@ -3,13 +3,15 @@
 
 #include "ui.h"
 
-UI::UI(Game* _game) {
+UI::UI()
+: width(1000),
+height(1000),
+insideWidth(1000),
+insideHeight(1000),
+showKittensButton(new SDL_Rect),
+newGameButton(new SDL_Rect)
+{
   game_loaded = false;
-  game = _game;
-  width = 1000;
-  height = 1000;
-  insideWidth = 850;
-  insideHeight = 850;
   
   SDL_Init(SDL_INIT_VIDEO);
   SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
@@ -19,7 +21,8 @@ UI::UI(Game* _game) {
   SDL_SetWindowTitle(window, "KittenBox");
   
   texture_loading_surface = SDL_LoadBMP("kitten.bmp");
-  if (texture_loading_surface == NULL) std::cout << "Error loading kitten.bmp" << std::endl << SDL_GetError() << std::endl << SDL_GetBasePath() << std::endl;
+  if (texture_loading_surface == NULL)
+    std::cout << "Error loading kitten.bmp" << std::endl << SDL_GetError() << std::endl << SDL_GetBasePath() << std::endl;
   kitten_texture = SDL_CreateTextureFromSurface(renderer, texture_loading_surface);
   if (kitten_texture == NULL) std::cout << "Error in kitten_surface" << std::endl;
   SDL_FreeSurface(texture_loading_surface);
@@ -48,8 +51,6 @@ UI::UI(Game* _game) {
   colours[18] = {109, 146, 241, 255};
   colours[19] = {255, 174, 186, 255};
   
-  showKittensButton = new SDL_Rect;
-  newGameButton = new SDL_Rect;
   game_loaded = true;
 }
 
@@ -98,7 +99,7 @@ void UI::loading_screen() {
   SDL_Delay(2000);
 }
 
-void UI::draw_background() {
+void UI::draw_background() const {
   SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
   SDL_RenderClear(renderer);
 }
@@ -117,10 +118,10 @@ void UI::draw_boxes_and_triangles() {
                      ((insideHeight - length) / 2) : 0) + ((length / 10) + y * (length / 10 - 1));
       box.w = length/10;
       box.h = length/10;
-      if (game->getBoard()[x][y].containsKitten && game->areKittensShown()) {
+      if (game.getBoard()[x][y].containsKitten && game.areKittensShown()) {
         SDL_RenderCopy(renderer, kitten_texture, NULL, &box); //Draw kitten texture inside box
       }
-      if (game->isPlayerSelected(x, y)) {
+      if (game.isPlayerSelected(x, y)) {
         SDL_RenderCopy(renderer, cross_texture, NULL, &box); //Draw cross texture inside box
       }
       SDL_SetRenderDrawColor(renderer, 0, 0, 0, 227); //Boxes colour
@@ -135,7 +136,7 @@ void UI::draw_boxes_and_triangles() {
         this->boxes_end_x = box.x + box.w;
       }
       if (y == 0) { //Draw top triangle for this column
-        triangle_state = game->getOutsideArea()[TOP][x];
+        triangle_state = game.getOutsideArea()[TOP][x];
         tri_col = colours[triangle_state.state + triangle_state.deviation];
         
         SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
@@ -152,7 +153,7 @@ void UI::draw_boxes_and_triangles() {
         store_triangle_boundaries(triangle, TOP, x);
         
       } else if (y == 7) { //Draw bottom triangle for this column
-        triangle_state = game->getOutsideArea()[BOTTOM][x];
+        triangle_state = game.getOutsideArea()[BOTTOM][x];
         tri_col = colours[triangle_state.state + triangle_state.deviation];
         
         SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
@@ -201,9 +202,9 @@ void UI::draw_boxes_and_triangles() {
     SDL_RenderDrawRect(renderer, showKittensButton);
     SDL_RenderDrawRect(renderer, newGameButton);
     //Draw left triangle for this row
-    triangle_state = game->getOutsideArea()[LEFT][y];
+    triangle_state = game.getOutsideArea()[LEFT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
-
+    
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
     
     triangle[0] = {this->boxes_start_x - 3, box.y + half_box_width};
@@ -218,7 +219,7 @@ void UI::draw_boxes_and_triangles() {
     store_triangle_boundaries(triangle, LEFT, y);
     
     //Draw right triangle for this row
-    triangle_state = game->getOutsideArea()[RIGHT][y];
+    triangle_state = game.getOutsideArea()[RIGHT][y];
     tri_col = colours[triangle_state.state + triangle_state.deviation];
     
     SDL_SetRenderDrawColor(renderer, tri_col.r, tri_col.g, tri_col.b, tri_col.a);
@@ -236,11 +237,11 @@ void UI::draw_boxes_and_triangles() {
   }
 }
 
-bool UI::on_which_side_of_triangle_edge(int x, int y, SDL_Point v1, SDL_Point v2) {
+bool UI::on_which_side_of_triangle_edge(const int& x, const int& y, const SDL_Point& v1, const SDL_Point& v2) const {
   return (x - v2.x) * (v1.y - v2.y) - (v1.x - v2.x) * (y - v2.y) < 0.0f;
 }
 
-void UI::handle_mouse_click(int x, int y) {
+void UI::handle_mouse_click(const int& x, const int& y) {
   bool side_of_edge [3];
   for (int p = 0; p < 4; p++) { //Loop through members of Position enum
     for (int b = 0; b < 8; b++) { //Loop through the 8 buttons at each position
@@ -250,37 +251,37 @@ void UI::handle_mouse_click(int x, int y) {
       
       if ((side_of_edge[0] == side_of_edge[1]) && (side_of_edge[1] == side_of_edge[2])) {
         std::cout << "Clicked " << p << " " << b << std::endl;
-        game->clickedArea(b, (Position) p);
+        game.clickedArea(b, (Position) p);
       }
     }
   }
   if (x > showKittensButton->x && x < showKittensButton->x + showKittensButton->w
       && y > showKittensButton->y && y < showKittensButton->y + showKittensButton->h) {
-    if (game->areKittensShown()) game->hideKittens();
-    else game->showKittens();
+    if (game.areKittensShown()) game.hideKittens();
+    else game.showKittens();
   }
   if (x > newGameButton->x && x < newGameButton->x + newGameButton->w
       && y > newGameButton->y && y < newGameButton->y + newGameButton->h) {
-    delete game;
-    game = new Game;
+    Game newGame;
+    game = newGame;
   }
   int width = length / 10;
   int boxes_start_x = this->boxes_start_x;
   int boxes_end_x = this->boxes_end_x;
   if (x >= boxes_start_x && x <= boxes_end_x && y >= boxes_start_x - width && y <= boxes_end_x - width) {
     std::cout << "INSIDE " << std::time(0) << "\n";
-    int _x = floorf((x - boxes_start_x) / width);
-    int _y = floorf((y - boxes_start_x + width) / width);
-    game->setPlayerSelected(_x, _y, !game->isPlayerSelected(_x, _y));
+    int tmp_x = floorf((x - boxes_start_x) / width);
+    int tmp_y = floorf((y - boxes_start_x + width) / width);
+    game.setPlayerSelected(tmp_x, tmp_y, !game.isPlayerSelected(tmp_x, tmp_y));
   }
 }
 
-inline void UI::store_triangle_boundaries(SDL_Point* triangle, Position position, int button) {
+inline void UI::store_triangle_boundaries(const SDL_Point* triangle, const Position& position, const int& button) {
   button_boundaries[position][button][0] = triangle[0];
   button_boundaries[position][button][1] = triangle[1];
   button_boundaries[position][button][2] = triangle[2];
 }
 
-bool UI::is_game_loaded() {
+bool UI::is_game_loaded() const {
   return game_loaded;
 }
