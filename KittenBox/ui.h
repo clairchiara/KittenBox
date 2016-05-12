@@ -12,6 +12,8 @@ class UI {
   
   UI(const UI&) = delete;
   
+  ~UI();
+  
   void update();
   
   void handle_events();

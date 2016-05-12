@@ -54,6 +54,16 @@ newGameButton(new SDL_Rect)
   game_loaded = true;
 }
 
+UI::~UI() {
+  delete window;
+  delete renderer;
+  delete texture_loading_surface;
+  delete kitten_texture;
+  delete cross_texture;
+  delete showKittensButton;
+  delete newGameButton;
+}
+
 void UI::update() {
   draw_background();
   draw_boxes_and_triangles();
