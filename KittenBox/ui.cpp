@@ -56,12 +56,19 @@ newGameButton(new SDL_Rect)
 
 UI::~UI() {
   delete window;
+  window = nullptr;
   delete renderer;
+  renderer = nullptr;
   delete texture_loading_surface;
+  texture_loading_surface = nullptr;
   delete kitten_texture;
+  kitten_texture = nullptr;
   delete cross_texture;
+  cross_texture = nullptr;
   delete showKittensButton;
+  showKittensButton = nullptr;
   delete newGameButton;
+  newGameButton = nullptr;
 }
 
 void UI::update() {
