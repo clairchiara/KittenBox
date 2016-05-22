@@ -53,12 +53,12 @@ public:
 	Game();
 	std::array<std::array<Cell, 8>, 8> getBoard() const;
 	void setBoard(std::array<std::array<Cell, 8>, 8> const&);
-	void setContainsKitten(const int&, const int&, const bool&);
-	void setPlayerSelected(const int&, const int&, const bool&);
-	bool isPlayerSelected(const int&, const int&);
+	void setContainsKitten(const int, const int, const bool);
+	void setPlayerSelected(const int, const int, const bool);
+	bool isPlayerSelected(const int, const int);
 	std::array<std::array<OutsideArea, 8>, 4> getOutsideArea() const;
 	Direction reverseDirection(const Direction&) const;
-	bool clickedArea(const int&, const Position&);
+	bool clickedArea(const int, const Position&);
 	void showKittens();
 	void hideKittens();
 	bool areKittensShown() const;

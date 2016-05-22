@@ -49,15 +49,15 @@ void Game::setBoard(const std::array<std::array<Cell, 8>, 8>& board) {
 	this->board = board;
 }
 
-void Game::setContainsKitten(const int& column, const int& row, const bool& value) {
+void Game::setContainsKitten(const int column, const int row, const bool value) {
 	board[column][row].containsKitten = value;
 }
 
-void Game::setPlayerSelected(const int& column, const int& row, const bool& value) {
+void Game::setPlayerSelected(const int column, const int row, const bool value) {
 	board[column][row].playerSelected = value;
 }
 
-bool Game::isPlayerSelected(const int& column, const int& row) {
+bool Game::isPlayerSelected(const int column, const int row) {
 	return board[column][row].playerSelected;
 }
 
@@ -79,7 +79,7 @@ Direction Game::reverseDirection(const Direction& direction) const {
 }
 
 
-bool Game::clickedArea(const int& i, const Position& pos) {
+bool Game::clickedArea(const int i, const Position& pos) {
 	
 	Direction direction;
 	Direction initialDirection;

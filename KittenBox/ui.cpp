@@ -254,11 +254,11 @@ void UI::draw_boxes_and_triangles() {
   }
 }
 
-bool UI::on_which_side_of_triangle_edge(const int& x, const int& y, const SDL_Point& v1, const SDL_Point& v2) const {
+bool UI::on_which_side_of_triangle_edge(const int x, const int y, const SDL_Point& v1, const SDL_Point& v2) const {
   return (x - v2.x) * (v1.y - v2.y) - (v1.x - v2.x) * (y - v2.y) < 0.0f;
 }
 
-void UI::handle_mouse_click(const int& x, const int& y) {
+void UI::handle_mouse_click(const int x, const int y) {
   bool side_of_edge [3];
   for (int p = 0; p < 4; p++) { //Loop through members of Position enum
     for (int b = 0; b < 8; b++) { //Loop through the 8 buttons at each position
@@ -293,7 +293,7 @@ void UI::handle_mouse_click(const int& x, const int& y) {
   }
 }
 
-inline void UI::store_triangle_boundaries(const SDL_Point* triangle, const Position& position, const int& button) {
+inline void UI::store_triangle_boundaries(const SDL_Point* triangle, const Position& position, const int button) {
   button_boundaries[position][button][0] = triangle[0];
   button_boundaries[position][button][1] = triangle[1];
   button_boundaries[position][button][2] = triangle[2];

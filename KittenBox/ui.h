@@ -51,11 +51,11 @@ class UI {
   
   void draw_boxes_and_triangles();
 
-  bool on_which_side_of_triangle_edge(const int&, const int&, const SDL_Point&, const SDL_Point&) const;
+  bool on_which_side_of_triangle_edge(const int, const int, const SDL_Point&, const SDL_Point&) const;
 
-  void handle_mouse_click(const int& x, const int& y);
+  void handle_mouse_click(const int x, const int y);
 
-  inline void store_triangle_boundaries(const SDL_Point*, const Position& position, const int& button);
+  inline void store_triangle_boundaries(const SDL_Point*, const Position& position, const int button);
 };
 
 #endif
